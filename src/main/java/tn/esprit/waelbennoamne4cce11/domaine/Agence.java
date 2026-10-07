@@ -1,8 +1,16 @@
 package tn.esprit.waelbennoamne4cce11.domaine;
 
 import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Agence {
 
     @Id
@@ -17,46 +25,17 @@ public class Agence {
 
     private String telephone;
 
-    public Agence() {
-    }
+    // Une agence possède plusieurs employés
+    @OneToMany(
+            mappedBy = "agence",
+            fetch = FetchType.LAZY
+    )
+    private List<Employe> employes = new ArrayList<>();
 
-    public Long getIdAgence() {
-        return idAgence;
-    }
-
-    public void setIdAgence(Long idAgence) {
-        this.idAgence = idAgence;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getVille() {
-        return ville;
-    }
-
-    public void setVille(String ville) {
-        this.ville = ville;
-    }
-
-    public String getAdresse() {
-        return adresse;
-    }
-
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
+    // Une agence possède plusieurs véhicules
+    @OneToMany(
+            mappedBy = "agence",
+            fetch = FetchType.LAZY
+    )
+    private List<Vehicule> vehicules = new ArrayList<>();
 }

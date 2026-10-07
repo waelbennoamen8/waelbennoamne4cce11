@@ -5,6 +5,8 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,4 +24,18 @@ public class Contrat {
     private BigDecimal montantTotal;
 
     private boolean valide;
+
+    // Contrat est le côté propriétaire de la relation avec Reservation
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_reservation")
+    private Reservation reservation;
+
+    // Un contrat peut avoir plusieurs paiements
+    @OneToMany(
+            mappedBy = "contrat",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Paiement> paiements = new ArrayList<>();
 }

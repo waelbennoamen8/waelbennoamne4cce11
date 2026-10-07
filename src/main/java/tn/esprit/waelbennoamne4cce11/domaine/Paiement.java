@@ -23,4 +23,9 @@ public class Paiement {
 
     @Enumerated(EnumType.STRING)
     private ModePaiement modePaiement;
+
+    // Plusieurs paiements appartiennent à un seul contrat
+    // Contrat est le parent
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Contrat contrat;
 }

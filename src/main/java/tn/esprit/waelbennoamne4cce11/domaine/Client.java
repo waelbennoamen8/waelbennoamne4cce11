@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -27,4 +29,12 @@ public class Client {
     private String numPermis;
 
     private LocalDate dateInscription;
+
+    // Un client peut avoir plusieurs réservations
+    @OneToMany(
+            mappedBy = "client",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.PERSIST
+    )
+    private List<Reservation> reservations = new ArrayList<>();
 }
