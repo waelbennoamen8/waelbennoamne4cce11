@@ -1,0 +1,71 @@
+### 1. Afficher la liste des véhicules
+GET http://localhost:8080/api/vehicules
+Accept: application/json
+
+###
+
+### 2. Ajouter un véhicule
+POST http://localhost:8080/api/vehicules
+Content-Type: application/json
+Accept: application/json
+
+{
+  "immatriculation": "TU-2026-105",
+  "marque": "Toyota",
+  "modele": "Yaris",
+  "categorie": "CITADINE",
+  "tarifJournalier": 120.00,
+  "statut": "DISPONIBLE"
+}
+
+###
+
+### 3. Vérifier la liste après l'ajout
+GET http://localhost:8080/api/vehicules
+Accept: application/json
+
+###
+
+### 4. Rechercher le véhicule par ID
+GET http://localhost:8080/api/vehicules/16
+Accept: application/json
+
+###
+### 5. Modifier le véhicule
+PUT http://localhost:8080/api/vehicules/20
+Content-Type: application/json
+Accept: application/json
+
+{
+  "immatriculation": "TU-2026-105",
+  "marque": "Toyota",
+  "modele": "Yaris",
+  "categorie": "CITADINE",
+  "tarifJournalier": 150.00,
+  "statut": "DISPONIBLE"
+}
+###
+### Vérifier la modification
+GET http://localhost:8080/api/vehicules/16
+Accept: application/json
+
+### 6. Supprimer le véhicule
+DELETE http://localhost:8080/api/vehicules/8
+Accept: application/json
+
+###
+
+GET http://localhost:8080/api/vehicules
+Accept: application/json
+
+### 7. Vérifier la liste après la suppression
+GET http://localhost:8080/api/vehicules
+Accept: application/json
+
+### Vérifier si le véhicule 8 existe encore
+GET http://localhost:8080/api/vehicules/20
+Accept: application/json
+
+### 6. Supprimer le véhicule
+DELETE http://localhost:8080/api/vehicules/20
+Accept: application/json
