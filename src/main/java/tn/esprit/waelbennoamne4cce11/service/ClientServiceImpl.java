@@ -1,5 +1,5 @@
 
-        package tn.esprit.waelbennoamne4cce11.service;
+package tn.esprit.waelbennoamne4cce11.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,6 +34,8 @@ public class ClientServiceImpl implements IClientService {
     @Override
     @Transactional(readOnly = true)
     public Client findById(Long id) {
+        verifierId(id);
+
         return clientRepository.findById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException(NOM_RESSOURCE, id));
@@ -47,6 +49,7 @@ public class ClientServiceImpl implements IClientService {
 
     @Override
     public Client update(Long id, Client client) {
+        verifierId(id);
         verifierClient(client);
 
         Client existant = clientRepository.findById(id)
@@ -65,6 +68,8 @@ public class ClientServiceImpl implements IClientService {
 
     @Override
     public void deleteById(Long id) {
+        verifierId(id);
+
         Client client = clientRepository.findById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException(NOM_RESSOURCE, id));
@@ -86,6 +91,13 @@ public class ClientServiceImpl implements IClientService {
         if (client.getEmail() == null || client.getEmail().isBlank()) {
             throw new IllegalArgumentException(
                     "L'email du client est obligatoire");
+        }
+    }
+
+    private void verifierId(Long id) {
+        if (id == null || id <= 0) {
+            throw new IllegalArgumentException(
+                    "L'identifiant du client doit être positif");
         }
     }
 }
