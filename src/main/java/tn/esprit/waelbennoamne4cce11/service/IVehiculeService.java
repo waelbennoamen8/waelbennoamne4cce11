@@ -6,7 +6,7 @@ import tn.esprit.waelbennoamne4cce11.domaine.Vehicule;
 import java.util.List;
 import java.util.Optional;
 
-public interface IVehiculeServices {
+public interface IVehiculeService {
 
     Vehicule createVehicule(Vehicule vehicule);
 

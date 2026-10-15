@@ -21,6 +21,7 @@ public class Maintenance {
     private LocalDate dateFin;
 
     private String description;
+    private Double cout;
 
     // Plusieurs maintenances concernent un seul véhicule
     @ManyToOne(fetch = FetchType.LAZY)

@@ -1,5 +1,4 @@
-
-        package tn.esprit.waelbennoamne4cce11.service;
+ package tn.esprit.waelbennoamne4cce11.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,6 +33,8 @@ public class MaintenanceServiceImpl implements IMaintenanceService {
     @Override
     @Transactional(readOnly = true)
     public Maintenance findById(Long id) {
+        verifierId(id);
+
         return maintenanceRepository.findById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException(NOM_RESSOURCE, id));
@@ -47,6 +48,7 @@ public class MaintenanceServiceImpl implements IMaintenanceService {
 
     @Override
     public Maintenance update(Long id, Maintenance maintenance) {
+        verifierId(id);
         verifierMaintenance(maintenance);
 
         Maintenance existante = maintenanceRepository.findById(id)
@@ -56,6 +58,7 @@ public class MaintenanceServiceImpl implements IMaintenanceService {
         existante.setDateDebut(maintenance.getDateDebut());
         existante.setDateFin(maintenance.getDateFin());
         existante.setDescription(maintenance.getDescription());
+        existante.setCout(maintenance.getCout());
         existante.setVehicule(maintenance.getVehicule());
 
         return maintenanceRepository.save(existante);
@@ -63,6 +66,8 @@ public class MaintenanceServiceImpl implements IMaintenanceService {
 
     @Override
     public void deleteById(Long id) {
+        verifierId(id);
+
         Maintenance maintenance = maintenanceRepository.findById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException(NOM_RESSOURCE, id));
@@ -87,9 +92,21 @@ public class MaintenanceServiceImpl implements IMaintenanceService {
                     "La date de fin ne peut pas être antérieure à la date de début");
         }
 
+        if (maintenance.getCout() == null || maintenance.getCout() < 0) {
+            throw new IllegalArgumentException(
+                    "Le coût de maintenance doit être positif ou nul");
+        }
+
         if (maintenance.getVehicule() == null) {
             throw new IllegalArgumentException(
                     "Le véhicule associé à la maintenance est obligatoire");
+        }
+    }
+
+    private void verifierId(Long id) {
+        if (id == null || id <= 0) {
+            throw new IllegalArgumentException(
+                    "L'identifiant de maintenance doit être positif");
         }
     }
 }

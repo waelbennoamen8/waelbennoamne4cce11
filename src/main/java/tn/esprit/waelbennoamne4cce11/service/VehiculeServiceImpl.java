@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class VehiculeServicesImpl implements IVehiculeServices {
+public class VehiculeServiceImpl implements IVehiculeService {
 
     private static final String NOM_RESSOURCE = "Véhicule";
 

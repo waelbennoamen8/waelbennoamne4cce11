@@ -4,7 +4,7 @@ package tn.esprit.waelbennoamne4cce11.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.waelbennoamne4cce11.domaine.Vehicule;
-import tn.esprit.waelbennoamne4cce11.service.IVehiculeServices;
+import tn.esprit.waelbennoamne4cce11.service.IVehiculeService;
 
 import java.util.List;
 
@@ -12,9 +12,9 @@ import java.util.List;
 @RequestMapping("/api/vehicules")
 public class VehiculeRestController {
 
-    private final IVehiculeServices vehiculeServices;
+    private final IVehiculeService vehiculeServices;
 
-    public VehiculeRestController(IVehiculeServices vehiculeServices) {
+    public VehiculeRestController(IVehiculeService vehiculeServices) {
         this.vehiculeServices = vehiculeServices;
     }
 
